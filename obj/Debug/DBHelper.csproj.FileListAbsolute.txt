@@ -33,3 +33,4 @@ D:\WelldyNew\API\DBHelper\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 D:\WelldyNew\API\DBHelper\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 D:\WelldyNew\API\DBHelper\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
 D:\WelldyNew\API\DBHelper\obj\Debug\DBHelper.csproj.CopyComplete
+D:\WelldyNew\API\DBHelper\obj\Debug\DBHelper.csprojAssemblyReference.cache
