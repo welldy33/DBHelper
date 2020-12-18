@@ -51,8 +51,6 @@ namespace Helper
         {
             DbTransaction transaction = (DbTransaction)null;
             DataSet dataSet = new DataSet();
-           
-            //string script = File.ReadAllText(@"E:\Project Docs\MX462-PD\MX756_ModMappings1.sql");
             try
             {
                 SqlConnection cn = connectDB(db);
