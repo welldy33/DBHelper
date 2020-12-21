@@ -20,8 +20,15 @@ namespace Helper
             "DEV","Develop"
             ,"MAIN","PWI_MAIN"
             );
+        static Dictionary<string, object> MethodCatalog = Tool.ToDic(
+            "insert",true,
+            "update",true,
+            "delete",true
+            );
         static SqlConnection connectDB(string db)
         {
+            if (!DBCatalog.ContainsKey(db))
+                throw new Exception("Cannot Found DB");
             SqlConnectionStringBuilder sConnB = new SqlConnectionStringBuilder() { DataSource = "192.168.3.182,1433", InitialCatalog = DBCatalog[db].ToString(), UserID = "sa", Password = "Digiman182" };
             return new SqlConnection(sConnB.ConnectionString);
         }
@@ -58,6 +65,7 @@ namespace Helper
                 SqlCommand command = createArgument(new SqlCommand(cmdName.ToUpper(), cn), arg);
                 var adapter = new SqlDataAdapter(command);
                 adapter.Fill(dataSet);
+                cn.Close();
             }
             catch (Exception ex)
             {
@@ -74,7 +82,40 @@ namespace Helper
             }
             return cmd;
         }
-       
+        static void mappingExecute(string cmdString,Dictionary<string,object>arg) {
+            string method = cmdString.Split('#')[0];
+            if (!MethodCatalog.ContainsKey(method.ToLower()))
+                throw new Exception("Cannot Found Command");
+            var arr = cmdString.Split('#')[1].Split('@');
+            string table = arr[0];
+            string db = arr[1];
+            if (method.ToLower() == "insert") {
+                Insert(table, db, arg);
+            }
+        }
+        static public void Execute(string cmdString,Dictionary<string,object>arg){
+            mappingExecute(cmdString, arg);
+        }
+        static void Insert(string table,string db,Dictionary<string,object>arg) {
+            ArrayList strCmd = new ArrayList();
+            List<string> listKey = new List<string>();
+            List<string> listval = new List<string>();
+            foreach (string key in arg.Keys) {
+                listKey.Add(key);
+                listval.Add("'"+arg[key].ToString()+"'" );
+            }
+            string cmdKey = string.Join(",", listKey.ToArray());
+            string cmdVal = string.Join(",", listval.ToArray());
+            string cmd = "Insert into " + table + "(" + cmdKey + ") values (" + cmdVal + ")";
+            SqlConnection cn = connectDB(db);
+            cn.Open();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand(cmd, cn);
+            command.ExecuteNonQuery();
+            cn.Close();
+        }
+        void Update() { }
+        void Delete() { }
     }
 
 }
