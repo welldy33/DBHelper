@@ -94,3 +94,4 @@ D:\WelldyNew\API\DBHelper\bin\Debug\Microsoft.Extensions.FileProviders.Abstracti
 D:\WelldyNew\API\DBHelper\bin\Debug\Microsoft.Extensions.Hosting.Abstractions.xml
 D:\WelldyNew\API\DBHelper\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
 D:\WelldyNew\API\DBHelper\bin\Debug\Microsoft.Extensions.Primitives.xml
+D:\WelldyNew\API\DBHelper\obj\Debug\Helper.csprojAssemblyReference.cache
